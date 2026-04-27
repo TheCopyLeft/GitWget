@@ -37,7 +37,10 @@ All downloaded files appear inside the `downloads/` folder. You can now download
 - Files larger than the `split_size` are automatically split into `.zip`, `.z01`, `.z02` … parts.  
   To reassemble: use `zip -F archive.zip --out combined.zip` (or any standard ZIP tool).
 - The workflow commits files in batches of 5 to avoid GitHub limits.
-- No extra files (README, license) are added to the `downloads/` folder – only your downloaded content.
 
 ## Credits
 Created for environments with restricted internet. Uses `aria2` and standard `zip` tools.
+
+## Author
+
+Developed by Anonymous
