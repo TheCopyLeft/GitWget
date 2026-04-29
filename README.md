@@ -1,7 +1,7 @@
 # GitWget
 
 **GitWget** lets you download files from any URL using GitHub Actions – useful when only GitHub is accessible.  
-It works on any forked repository, downloads files via `aria2` with parallel connections, optionally packs them into ZIP, and automatically splits large files to keep them within repository limits.
+It works on any forked repository, downloads files via `aria2` with parallel connections, optionally packs them into ZIP with an optional password, and automatically splits large files to keep them within repository limits.
 
 ## How to Use (after forking)
 
@@ -27,9 +27,10 @@ Forks often have Actions disabled by default. To enable:
 
 | Input | Description |
 |-------|-------------|
-| **file_url** | One or more direct URLs, separated by spaces. Example: `https://example.com/file1.zip https://example.com/file2.jpg` |
-| **mode** | `normal` – keep each file as is (splits automatically if too large). `zip` – pack all downloaded files into a single zip archive. |
-| **split_size** | Splits any file larger than this size into zip parts (e.g., `90m`, `95m`). Default `90m`. |
+| **file_url** | One or more direct URLs. You can separate them with a **space**, a **comma**, or put each URL on a **new line**. |
+| **mode** | `normal` – keep each file as-is (splits automatically if too large). `zip` – pack all downloaded files into a single zip archive. |
+| **split_size** | Maximum size per file. Any file larger than this is automatically split into zip parts (e.g., `90m`, `95m`). Default `90m`. |
+| **zip_password** | Optional. If set, all zip files (both in `zip` mode and auto-split parts) will be protected with this password. Leave empty for no password. |
 | **connections** | Number of parallel connections per URL for faster downloads (1 to 16). Default `4`. |
 | **custom_filename** | Optional. Only works when downloading a **single URL**. Overwrites the output filename. Leave empty to use the original filename from the URL. |
 
@@ -45,9 +46,10 @@ https://github.com/YourUsername/YourRepo/archive/refs/heads/main.zip
 
 ## Important Notes
 
-- Any file larger than `split_size` is automatically split into `.zip`, `.z01`, `.z02` … parts. To reassemble on your local machine: use `zip -F original.zip --out combined.zip` (standard zip tool).
+- Any file larger than `split_size` is automatically split into `.zip`, `.z01`, `.z02` … parts. To reassemble on your local machine, use: `zip -F original.zip --out combined.zip`
+- If a `zip_password` is set, you will need that password to extract the files after downloading.
 - The workflow commits files in batches of 5 to avoid GitHub limits.
-- If you download multiple files with `custom_filename`, it will be ignored – custom naming only works for a single URL.
+- If you download multiple files, `custom_filename` will be ignored – custom naming only works for a single URL.
 - The `connections` value increases download speed but may be limited by the source server. Values between 2 and 8 are usually safe.
 - If a download fails, the workflow retries up to 5 times automatically before moving on.
 
