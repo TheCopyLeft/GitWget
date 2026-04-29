@@ -27,7 +27,7 @@ Forks often have Actions disabled by default. To enable:
 
 | Input | Description |
 |-------|-------------|
-| **file_url** | One or more direct URLs. You can separate them with a **space**, a **comma**, or put each URL on a **new line**. |
+| **file_url** | One or more direct URLs. Separate multiple URLs with a **space** or a **comma**. |
 | **mode** | `normal` – keep each file as-is (splits automatically if too large). `zip` – pack all downloaded files into a single zip archive. |
 | **split_size** | Maximum size per file. Any file larger than this is automatically split into zip parts (e.g., `90m`, `95m`). Default `90m`. |
 | **zip_password** | Optional. If set, all zip files (both in `zip` mode and auto-split parts) will be protected with this password. Leave empty for no password. |
